@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Visualizer</title>
+<style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        nav {
+            background:linear-gradient(red,blue,yellow) ;
+            color: white;
+            display: grid;
+            -ms-grid-columns: 30% 60%;
+            grid-template-columns: 30% 60%;
+            -webkit-column-gap: 10%;
+            column-gap: 8%;
+            padding: 0% 4%;
+        }
+
+        nav .array-inputs {
+            display: grid;
+            -ms-grid-columns: 60% 40%;
+            grid-template-columns: 60% 40%;
+            place-content: center;
+            padding: 3% 0%;
+        }
+      
+        /* Transition Connect of every text  start */
+        
+        #a_generate::after{
+            content: "";
+            position: absolute;
+            top: 28%;
+            left: 8.3%;
+            height: 6px;
+            width: 0%;
+            background:linear-gradient(aqua,yellow,red);
+            transition: all ease 1s;            
+        }
+        #a_generate:hover::after{
+            width: 11.3%;
+        }
+         /* Transition Connect of every text  end */
+
+        nav .array-inputs #a_size {
+            padding: 9% 10%;
+        }
+
+    
+
+        nav .array-inputs #a_generate {
+            background-color: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 4% 0% 0% 0%;
+            padding-left: 20%;
+        }
+
+        nav .array-inputs #a_generate:hover {
+            cursor: pointer;
+        }
+
+        nav .header_right {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+
+        nav .header_right .nav-heading {
+            display: inline-block;
+            font-size: xxx-large;
+            padding: 3% 0%;
+        }
+
+        nav .header_right .nav-heading::after{
+            content: "";
+            position: absolute;
+            top: 12.5%;
+            left: 38.5%;
+            height: 5px;
+            width: 0%;
+            background:linear-gradient(red,yellow);
+            transition: all ease 1s;            
+        }
+        nav .header_right .nav-heading:hover::after{
+            width: 31%;
+        }
+
+        nav .header_right .algos {
+            display: -ms-grid;
+            display: grid;
+            -ms-grid-columns: (16.66667%)[6];
+            grid-template-columns: repeat(6, 16.66667%);
+            place-content: center;
+            padding: 3% 0%;
+        }
+
+        nav .header_right .algos button {
+            background-color: transparent;
+            border: none;
+            color:white;
+            padding: auto;
+            margin: 30px 1px 1px 1px ;
+            outline: none;
+            border-radius: 20px;
+            box-shadow: 0 1px 5px cyan, 10px 0 25px cyan;
+            padding: 3% 10%;
+            font-size: 21px;
+        }
+
+    
+        nav .header_right .algos button:hover {
+            box-shadow: 0 5px 5px cyan, 0 5px 25px cyan, 0 0 50px cyan , 0 0 100px cyan , 0 0 200px cyan ;
+            cursor: pointer;
+            color:blueviolet;
+        }
+
+        nav .header_right .algos .butt_locked {
+            background-color:red;
+            cursor: pointer;
+        }
+
+        nav .header_right .algos .butt_locked:hover {
+            background-color: cyan;
+            cursor: pointer;
+        }
+
+        nav .header_right .algos .butt_selected {
+            background-color: white;
+            color: green;
+        }
+
+        nav .header_right .algos .butt_selected:hover {
+            background-color: white;
+            cursor: pointer;
+        }
+
+        nav .header_right .algos .butt_unselected:hover {
+            background-color: blue;
+            cursor: pointer;
+        }
+
+        section {
+            display: -ms-grid;
+            display: grid;
+            -ms-grid-columns: 20% 60% 20%;
+            grid-template-columns: 20% 60% 20%;
+        }
+
+        section .Complexity_Containers {
+            margin-top: 20%;
+        }
+
+        section .Complexity_Containers .Pair_Definitions {
+            margin-top: 15%;
+        }
+
+        section .Complexity_Containers .Pair_Definitions p {
+            display: inline;
+        }
+
+        section .Complexity_Containers .Pair_Definitions p.Sub_Heading {
+            font-size: medium;
+            text-transform: none;
+        }
+
+        section #Info_Cont1 {
+            padding: 20% 10%;
+        }
+
+        section #Info_Cont1 h3 {
+            text-decoration: underline;
+        }
+
+        section #array_container {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            width: 100%;
+            height: 70vh;
+        }
+
+        section #Info_Cont2 {
+            padding: 20% 5%;
+        }
+
+        section #Info_Cont2 h3 {
+            text-decoration: underline;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        /*
+        @media (max-width: 480px)//Mobiles
+        {
+            
+        }
+
+        @media (min-width: 481px) and (max-width: 1250px)//Tablets
+        {
+
+        }
+
+        @media (min-width: 1251px)//Laptops and up
+        {
+
+        }
+        */
+</style>
+
+</head>
+<body style="background-color: rgb(223, 220, 217);">
+
+    <header>
+        <nav>
+            <div class="array-inputs">
+                <p class="one">Size of the array:</p>
+                <input id="a_size" type="range" min=20 max=150 step=1 value=80>
+                <p class="two">Speed of the - algorithm:</p>
+                <input id="a_speed" type="range" min=1 max=5 step=1 value=4>
+                <button id="a_generate">Generate New Array !</button>
+            </div>
+
+            <div class="header_right">
+                <p class="nav-heading">Sorting visualizer</p>
+
+                <div class="algos ">
+                    <button >Bubble</button>
+                    <button >Selection</button>
+                    <button >Merge</button>
+                    <button >Quick</button>
+                    <button style="margin-right: 0px;">Heap</button>
+                    <button >Insertion</button>
+                    
+                </div>
+            </div>
+
+        </nav>
+    </header>
+
+    <section>
+        <div id="Info_Cont1">
+
+            <h3>TIME COMPLEXITY</h3>
+            <div class="Complexity_Containers" id="Time_Complexity_Types_Container">
+
+                <div class="Pair_Definitions">
+                    <p class="Sub_Heading">Worst case:</p>
+                    <p id="Time_Worst"></p>
+                </div>
+                
+                <div class="Pair_Definitions">
+                    <p class="Sub_Heading">Average case:</p>
+                    <p id="Time_Average"></p>
+                </div>
+                
+                <div class="Pair_Definitions">
+                    <p class="Sub_Heading">Best case:</p>
+                    <p id="Time_Best"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="array_container"> </div>
+
+        <div id="Info_Cont2">
+            <h3>SPACE COMPLEXITY</h3>
+            <div class="Complexity_Containers" id="Space_Complexity_Types_Container">
+
+                <div class="Pair_Definitions">
+                    <p class="Sub_Heading">Worst case:</p>
+                    <p id="Space_Worst"></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="scripts/main.js"></script>   
+    <script src="scripts/visualization.js"></script>
+    <script src="scripts/bubble_sort.js"></script>
+    <script src="scripts/selection_sort.js"></script>
+    <script src="scripts/insertion_sort.js"></script>
+    <script src="scripts/merge_sort.js"></script>
+    <script src="scripts/quick_sort.js"></script>
+    <script src="scripts/heap_sort.js"></script>
+</body>
+</html>
